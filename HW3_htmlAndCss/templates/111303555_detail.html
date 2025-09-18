@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>111303555_detail</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; line-height: 1.6; }
+    h1 { margin: 80px 0 20px; } /* 預留空間避免被 navbar 擋住 */
+    ul { margin-bottom: 20px; }
+    iframe { margin: 15px 0; display: block; }
+    form { margin-top: 20px; }
+    label { display: block; margin: 8px 0 4px; }
+    textarea { width: 100%; height: 80px; }
+    button { margin-top: 12px; padding: 6px 12px; }
+  </style>
+  <!-- 引入外部 CSS -->
+  <link rel="stylesheet" href="D:\中央\電腦網路與程式\ME2025Demo\HW3_htmlAndCss\static\css\111303555_css.css">
+</head>
+<body>
+  <!-- 導覽列 -->
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="nav__bar">
+      <!-- 左側品牌 -->
+      <a class="nav__brand" href="111303555_index.html">
+        <span>My Site</span>
+      </a>
+
+      <!-- 漢堡：手機用 -->
+      <label for="nav-toggle" class="nav__hamburger" aria-label="Open menu"><span></span></label>
+      <input type="checkbox" id="nav-toggle" hidden>
+
+      <!-- 右側連結 -->
+      <ul class="nav__list">
+        <li><a class="nav__link" href="111303555_index.html">首頁</a></li>
+        <li class="dropdown">
+          <details>
+            <summary>社群連結</summary>
+            <div class="dropdown__menu">
+              <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+            </div>
+          </details>
+        </li>
+        <li><a class="nav__link is-active" href="111303555_detail.html">詳細頁</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 主內容 -->
+  <h1>Albion</h1>
+
+  <!-- 影片 -->
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube-nocookie.com/embed/jvQ-o0i7Bek"
+    title="YouTube video player"
+    frameborder="0"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+
+  <!-- 說明 (清單) -->
+  <h2>簡介</h2>
+  <ul>
+    <li>遊戲發布日期:2017/7/17</li>
+    <li>本人遊玩時間:4年</li>
+    <li>所屬伺服器：北美</li>
+  </ul>
+
+  <!-- 表單 -->
+  <h2>回饋表單</h2>
+  <form action="111303555_index.html" method="get">
+    <!-- 輸入框 + 匿名 -->
+    <div style="margin:8px 0;">
+      <label for="name" style="display:inline-block;">姓名：</label>
+      <input type="text" id="name" name="name" style="margin-right:10px;">
+      <label style="display:inline-block;"><input type="checkbox" name="anonymous"> 匿名</label>
+    </div>
+
+    <!-- 下拉選單 -->   
+    <label>你是從哪裡知道這個網站的？</label>
+    <select name="source">
+      <option value="同學">同學</option>
+      <option value="老師">老師</option>
+      <option value="網路">網路</option>
+      <option value="其他">其他</option>
+    </select>
+
+    <!-- 單選 -->
+    <label>你最喜歡的遊戲活動：</label>
+    <input type="radio" name="type" value="A"> pvp
+    <input type="radio" name="type" value="B"> pve
+    <input type="radio" name="type" value="C"> zvz
+
+    <!-- 多選 -->
+    <label>您的遊玩時段 (可複選)：</label>
+    <input type="checkbox" name="hobby" value="上午"> 上午
+    <input type="checkbox" name="hobby" value="下午"> 下午
+    <input type="checkbox" name="hobby" value="晚上"> 晚上
+    <input type="checkbox" name="hobby" value="凌晨"> 凌晨
+
+    <!-- 輸入框 -->
+    <label>備註：</label>
+    <textarea name="comment"></textarea>
+
+    <!-- 提交按鈕 -->
+    <button type="submit">送出回首頁</button>
+  </form>
+</body>
+</html>

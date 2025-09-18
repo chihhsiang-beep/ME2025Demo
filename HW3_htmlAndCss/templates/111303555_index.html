@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>111303555_詹智翔</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    h1 { margin: 80px 0 20px; text-align: center; } /* 增加頂部間距避免被navbar遮住 */
+    table { border-collapse: collapse; width: 100%; }
+    td {
+      border: 1px solid #ccc;
+      width: 33%;
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px;
+    }
+    img {
+      width: 100%;        /* 撐滿格子寬度 */
+      height: 250px;      /* 固定高度 */
+      object-fit: contain;/* 保持完整圖片比例，避免裁切 */
+      background: #fff;   /* 多餘空白用白底填滿 */
+    }
+    a { 
+      text-decoration: none; 
+      color: purple;
+      font-weight: normal; 
+    }
+    a:hover { text-decoration: underline; }
+  </style>
+  <!-- 引入外部 CSS -->
+  <link rel="stylesheet" href="D:\中央\電腦網路與程式\ME2025Demo\HW3_htmlAndCss\static\css\111303555_css.css">
+</head>
+<body>
+  <!-- 導覽列 -->
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="nav__bar">
+      <!-- 左側品牌 -->
+      <a class="nav__brand" href="111303555_index.html">
+        <span>My Site</span>
+      </a>
+
+      <!-- 漢堡：手機用 -->
+      <label for="nav-toggle" class="nav__hamburger" aria-label="Open menu"><span></span></label>
+      <input type="checkbox" id="nav-toggle" hidden>
+
+      <!-- 右側連結 -->
+      <ul class="nav__list">
+        <li><a class="nav__link is-active" href="111303555_index.html">首頁</a></li>
+
+        <!-- 下拉選單 -->
+        <li class="dropdown">
+          <details>
+            <summary>社群連結</summary>
+            <div class="dropdown__menu">
+              <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+            </div>
+          </details>
+        </li>
+
+        <li><a class="nav__link" href="111303555_detail.html">詳細頁</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 主內容 -->
+  <h1>3 Facts About Hsiang</h1>
+
+    <table>
+    <!-- 第一列：圖片 + 超連結 -->
+    <tr>
+        <td>
+        <a href="111303555_detail.html">
+            <img src="D:\中央\電腦網路與程式\ME2025Demo\HW3_htmlAndCss\static\img\albion.jpg" alt="Albion Online">
+        </a>
+        </td>
+        <td>
+        <a href="111303555_detail.html">
+            <img src="D:\中央\電腦網路與程式\ME2025Demo\HW3_htmlAndCss\static\img\機械館.jpg" alt="Mechanical Building">
+        </a>
+        </td>
+        <td>
+        <a href="111303555_detail.html">
+            <img src="D:\中央\電腦網路與程式\ME2025Demo\HW3_htmlAndCss\static\img\fries.jpg" alt="Fries">
+        </a>
+        </td>
+    </tr>
+    <!-- 第二列：文字超連結 -->
+    <tr>
+        <td><a href="111303555_detail.html">Habit: play video game</a></td>
+        <td><a href="111303555_detail.html">Major: Mechanical Engineering</a></td>
+        <td><a href="111303555_detail.html">Favorite food: fries</a></td>
+    </tr>
+    </table>
+</body>
+</html>
