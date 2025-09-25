@@ -10,6 +10,17 @@ function clearExpr() {
   document.getElementById("expr").value = "";
 }
 
+function calcExpr() {
+  let expr = document.getElementById("expr").value;
+  try {
+    const result = eval(expr);
+    alert(expr + " = " + result);
+    document.getElementById("expr").value = result;
+  } catch (e) {
+    document.getElementById("expr").value = "Error";
+  } 
+}
+
 
 let buf = `<div class="row">`;
 for (let n = 0; n <= 9; n++) {
@@ -35,3 +46,4 @@ document.write(`<div class="row">` +
                `<button class="btn wide" onclick="calcExpr()">=</button>` +
                `</div>`);
 
+document.write('</div>');
