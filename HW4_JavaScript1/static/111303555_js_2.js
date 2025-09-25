@@ -6,6 +6,11 @@ function appendChar(ch) {
   document.getElementById("expr").value += ch;
 }
 
+function clearExpr() {
+  document.getElementById("expr").value = "";
+}
+
+
 let buf = `<div class="row">`;
 for (let n = 0; n <= 9; n++) {
   // 每列 3 個：0 1 2 / 3 4 5 / 6 7 8，最後一列 9 + clear
