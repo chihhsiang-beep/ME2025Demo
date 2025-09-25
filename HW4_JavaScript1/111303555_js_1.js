@@ -1,4 +1,4 @@
-const answer = Math.floor(Math.random() * 100) + 1;
+let answer = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 function onGuess(){
     const guessField = document.getElementById("guessField");
