@@ -19,7 +19,6 @@ function onGuess(){
     }
     const guessField = document.getElementById("guessField");
     const guess = Number(guessField.value);
-    const message = document.getElementById("message");
     attempts++;
 
     if (guess === answer) {
@@ -29,9 +28,9 @@ function onGuess(){
         answer = Math.floor(Math.random() * 100) + 1;
         guessField.value = '';
     } else if (guess < answer) {
-         message.textContent = ("太小了，再試一次！");
+        document.getElementById("message").textContent = "太小了，再試一次！";
     } else if (guess > answer) {   
-         message.textContent = ("太大了，再試一次！");
+        document.getElementById("message").textContent = "太大了，再試一次！";
     }
 }
 
