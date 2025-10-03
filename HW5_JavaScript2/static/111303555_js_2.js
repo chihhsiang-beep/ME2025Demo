@@ -1,19 +1,33 @@
 
 function checkqty () {
-    melonsnum = document.getElementById("melonsnum").value
-    melonqty = document.getElementById("melonqty").value
-    if (melonsnum > melonqty) {
-        document.getElementById("melonsnum").value = melonqty
+    let input = document.getElementById("melonsnum");
+    let melonsnum = parseInt(input.value);
+        if (isNaN (melonsnum) || melonsnum < 1) {
+            input.value = 1;
+        } else {
+        input.value = melonsnum; 
     }
-}
+
+    }
+
 
 function increase () {
-    document.getElementById("melonsnum").value ++
-}
+    let input = document.getElementById("melonsnum");
+    let melonsnum = parseInt(input.value);
+    let melonqty = parseInt(document.getElementById("melonqty").textContent); 
+
+    if (melonsnum < melonqty) {
+
+        document.getElementById("melonsnum").value ++
+        } else {
+            document.getElementById("melonsnum").value = melonqty
+        }
+    }
 
 function decrease () {
-    let a = parseInt(document.getElementById("melonsnum").value) 
-    if (a > 0) {
+    let input = document.getElementById("melonsnum");
+    let a = parseInt(input.value);
+    if (a >= 1) {
         a --    
     }
     document.getElementById("melonsnum").value = a;
