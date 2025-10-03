@@ -47,6 +47,24 @@ function calculate(numId, priceId, totalId) {
     document.getElementById(totalId).textContent = "$" + total;
 }
 
+function AllCheckboxes(selectCheckbox) {
+    const checkboxes = document.querySelectorAll(".product");
+    checkboxes.forEach(cb => {
+        cb.checked = selectCheckbox.checked;  // 根據 select checkbox 的勾選狀態設定其他商品的勾選狀態
+    });
+    }
+function selectAllcheckedbox() {
+    const checkboxes  = document.querySelectorAll(".product");
+    const selectAllcheckedbox = document.getElementById("checkbox_all");
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    selectAllcheckedbox.checked = allChecked;
+    if (!allChecked) {
+         selectAllcheckedbox.checked = false;
+    }
+}
+
+
+
 function checkout() {
     let checkboxes = document.querySelectorAll(".product");
     let total = 0;
@@ -59,6 +77,22 @@ function checkout() {
 
     if (cb.checked) {
         total += subtotal;
+        let stockId = cb.getAttribute("data_qty"); 
+        let stock = parseInt(document.getElementById(stockId).textContent);
+         if (stock >= qty) {
+                stock -= qty;
+            } else {
+                stock = 0; 
+            }
+
+            document.getElementById(stockId).textContent = stock;
+            
+            if (stock > 0) {
+                document.getElementById(qtyId).value = 1;
+            } else {
+                document.getElementById(qtyId).value = 0;
+                document.getElementById(qtyId).disabled = true;  
+            }
     } else {
         document.getElementById(qtyId).value = 0;
         document.getElementById(totalId).textContent = "$0";
@@ -75,28 +109,10 @@ function checkout() {
     + "\nRTX5070: " + document.getElementById("RTXnum").value + " 張"
     + "\n總金額: " + document.getElementById("total").textContent); 
 
+    updatetotal()
+
     checkboxes.forEach(cb => {
         cb.checked = false;
     })
+    
 }
-
-// function melloncalculate() {
-//     let qty = parseInt(document.getElementById("melonsnum").value);
-//     let price = parseInt(document.getElementById("melonprice").textContent.replace("$", ""));
-//     let total = qty * price;
-//     document.getElementById("melontotal").textContent = "$" + total;
-// }
-
-// function bananacalculate() {
-//     let qty = parseInt(document.getElementById("banananum").value);
-//     let price = parseInt(document.getElementById("bananaprice").textContent.replace("$", ""));
-//     let total = qty * price;
-//     document.getElementById("bananatotal").textContent = "$" + total;
-// }
-
-// function RTXcalculate() {
-//     let qty = parseInt(document.getElementById("RTXnum").value);
-//     let price = parseInt(document.getElementById("RTXprice").textContent.replace("$", ""));
-//     let total = qty * price;
-//     document.getElementById("RTXtotal").textContent = "$" + total;
-// }

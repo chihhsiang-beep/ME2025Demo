@@ -8,7 +8,7 @@
         <table border="1">
 
             <tr>
-                <th></th>
+                <th><input type="checkbox" id = "checkbox_all" onclick="AllCheckboxes(this)"></th>
                 <th>商品名稱</th>
                 <th>商品庫存</th>
                 <th>單價</th>
@@ -16,7 +16,7 @@
                 <th>小計</th>
             </tr>
             <tr>
-                <th><input type="checkbox"  class = "product" id = check_1 data_total="melontotal" data_qty="melonsnum">></th>
+                <th><input type="checkbox"  class = "product" id = check_1 data_total="melontotal" data_qty="melonsnum" onclick="selectAllcheckedbox()">></th>
                 <td><img src="D:/中央/電腦網路與程式/ME2025Demo/HW5_JavaScript2/static/img/西瓜.jpg" width="200" height="150" alt="西瓜"> <br>西瓜</td>
                 <td id = "melonqty">20</td>
                 <td id = "melonprice">$100</td>
@@ -27,7 +27,7 @@
                 <td id = melontotal>$0</td>
             </tr>
             <tr>
-                <th><input type="checkbox" class = "product" id = check_2 data_total="bananatotal" data_qty="banananum"></th>
+                <th><input type="checkbox" class = "product" id = check_2 data_total="bananatotal" data_qty="banananum" onclick="selectAllcheckedbox()"></th>
                 <td><img src="D:/中央/電腦網路與程式/ME2025Demo/HW5_JavaScript2/static/img/香蕉.jpg" width="200" height="150" alt="香蕉"> <br>香蕉</td>
                 <td id = "bananaqty">10</td>
                 <td id = "bananaprice">$30</td>
@@ -38,7 +38,7 @@
                 <td id = bananatotal>$0</td>
             </tr>
             <tr>
-                <th><input type="checkbox" class = "product" id = check_3 data_total="RTXtotal" data_qty="RTXnum">></th>
+                <th><input type="checkbox" class = "product" id = check_3 data_total="RTXtotal" data_qty="RTXnum" onclick="selectAllcheckedbox()"></th>
                 <td><img src="D:/中央/電腦網路與程式/ME2025Demo/HW5_JavaScript2/static/img/RTX5070.jpg" width="200" height="150" alt="香蕉"> <br>RTX5070</td>
                 <td id = "RTXqty">5</td>
                 <td id = "RTXprice">$40000</td>
