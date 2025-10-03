@@ -40,9 +40,11 @@ function increase (inputId, qtyId) {
 function decrease (inputId) {
     let input = document.getElementById(inputId);
     let a = parseInt(input.value);
-    if (a >= 1) {
+    if (a > 1) {
         a --    
-    }   
+    } else if (a = 1) {
+        a;
+    }  
     document.getElementById(inputId).value = a;
     updatetotal()
 }
