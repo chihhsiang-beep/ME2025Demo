@@ -1,34 +1,34 @@
 
-function checkqty () {
-    let input = document.getElementById("melonsnum");
-    let melonsnum = parseInt(input.value);
-        if (isNaN (melonsnum) || melonsnum < 1) {
+function checkqty (inputId) {
+    let input = document.getElementById(inputId);
+    let num = parseInt(input.value);
+        if (isNaN (num) || num < 1) {
             input.value = 1;
         } else {
-        input.value = melonsnum; 
+        input.value = num; 
     }
 
     }
 
 
-function increase () {
-    let input = document.getElementById("melonsnum");
-    let melonsnum = parseInt(input.value);
-    let melonqty = parseInt(document.getElementById("melonqty").textContent); 
+function increase (inputId, qtyId) {
+    let input = document.getElementById(inputId);
+    let num = parseInt(input.value);
+    let qty = parseInt(document.getElementById(qtyId).textContent); 
 
-    if (melonsnum < melonqty) {
+    if (num < qty) {
 
-        document.getElementById("melonsnum").value ++
+        input.value ++
         } else {
-            document.getElementById("melonsnum").value = melonqty
+            input.value = qty
         }
     }
 
-function decrease () {
-    let input = document.getElementById("melonsnum");
+function decrease (inputId) {
+    let input = document.getElementById(inputId);
     let a = parseInt(input.value);
     if (a >= 1) {
         a --    
     }
-    document.getElementById("melonsnum").value = a;
+    document.getElementById(inputId).value = a;
 }
