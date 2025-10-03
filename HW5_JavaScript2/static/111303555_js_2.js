@@ -7,9 +7,7 @@ function checkqty (inputId) {
         } else {
         input.value = num; 
     }
-    melloncalculate();
-    bananacalculate();
-    RTXcalculate();
+    update()
     }
 
 
@@ -24,9 +22,7 @@ function increase (inputId, qtyId) {
         } else {
             input.value = qty
         }
-    melloncalculate();
-    bananacalculate();
-    RTXcalculate();
+    update()
     }
 
 function decrease (inputId) {
@@ -36,28 +32,38 @@ function decrease (inputId) {
         a --    
     }   
     document.getElementById(inputId).value = a;
-    melloncalculate();
-    bananacalculate();
-    RTXcalculate();
+    update()
+}
+function update() {
+    calculate("melonsnum", "melonprice", "melontotal");
+    calculate("banananum", "bananaprice", "bananatotal");
+    calculate("RTXnum", "RTXprice", "RTXtotal");
+    
+}
+function calculate(numId, priceId, totalId) {
+    let qty = parseInt(document.getElementById(numId).value);
+    let price = parseInt(document.getElementById(priceId).textContent.replace("$", ""));
+    let total = qty * price;
+    document.getElementById(totalId).textContent = "$" + total;
 }
 
-function melloncalculate() {
-    let qty = parseInt(document.getElementById("melonsnum").value);
-    let price = parseInt(document.getElementById("melonprice").textContent.replace("$", ""));
-    let total = qty * price;
-    document.getElementById("melontotal").textContent = "$" + total;
-}
+// function melloncalculate() {
+//     let qty = parseInt(document.getElementById("melonsnum").value);
+//     let price = parseInt(document.getElementById("melonprice").textContent.replace("$", ""));
+//     let total = qty * price;
+//     document.getElementById("melontotal").textContent = "$" + total;
+// }
 
-function bananacalculate() {
-    let qty = parseInt(document.getElementById("banananum").value);
-    let price = parseInt(document.getElementById("bananaprice").textContent.replace("$", ""));
-    let total = qty * price;
-    document.getElementById("bananatotal").textContent = "$" + total;
-}
+// function bananacalculate() {
+//     let qty = parseInt(document.getElementById("banananum").value);
+//     let price = parseInt(document.getElementById("bananaprice").textContent.replace("$", ""));
+//     let total = qty * price;
+//     document.getElementById("bananatotal").textContent = "$" + total;
+// }
 
-function RTXcalculate() {
-    let qty = parseInt(document.getElementById("RTXnum").value);
-    let price = parseInt(document.getElementById("RTXnprice").textContent.replace("$", ""));
-    let total = qty * price;
-    document.getElementById("RTXtotal").textContent = "$" + total;
-}
+// function RTXcalculate() {
+//     let qty = parseInt(document.getElementById("RTXnum").value);
+//     let price = parseInt(document.getElementById("RTXprice").textContent.replace("$", ""));
+//     let total = qty * price;
+//     document.getElementById("RTXtotal").textContent = "$" + total;
+// }
