@@ -1,12 +1,24 @@
 
 function checkqty (inputId) {
     let input = document.getElementById(inputId);
+
+    let stockId;
+    if (inputId === 'melonsnum') {
+        stockId = 'melonqty';
+    } else if (inputId === 'banananum') {
+        stockId = 'bananaqty';
+    } else if (inputId === 'RTXnum') {
+        stockId = 'RTXqty';
+    }
+    let stockElement = document.getElementById(stockId);
+    let stock = stockElement ? parseInt(stockElement.textContent) : Infinity;
     let num = parseInt(input.value);
         if (isNaN (num) || num < 1) {
-            input.value = 1;
-        } else {
-        input.value = num; 
+            num = 1;
+        }  else if (num > stock) {
+        num = stock; 
     }
+    input.value = num;
     updatetotal()
     }
 
@@ -64,50 +76,66 @@ function selectAllcheckedbox() {
 }
 
 
-
 function checkout() {
     let checkboxes = document.querySelectorAll(".product");
     let total = 0;
+    let purchasedQuantities = {}; 
 
     checkboxes.forEach(cb => {
-        let qtyId = cb.getAttribute("data_qty");
+        let qtyInputId = cb.getAttribute("data_qty");
         let totalId = cb.getAttribute("data_total");
-        let qty = parseInt(document.getElementById(qtyId).value) || 0;
-        let subtotal = parseInt(document.getElementById(totalId).textContent.replace("$", "")) || 0;
+        let stockId = cb.getAttribute("data-stock-id");
 
-    if (cb.checked) {
+        let qtyInput = document.getElementById(qtyInputId);
+        let stockElement = document.getElementById(stockId);
+        let totalElement = document.getElementById(totalId);
+
+        if (!qtyInput || !stockElement || !totalElement) {
+            return; // 如果找不到元素，跳過這個商品
+        }
+
+        let qty = parseInt(qtyInput.value) || 0; 
+        let subtotal = parseInt(totalElement.textContent.replace("$", "")) || 0;
+        let productName = cb.parentElement.nextElementSibling.textContent.trim().split('\n').pop().trim();
+    if (cb.checked && qty > 0) {
         total += subtotal;
-        let stockId = cb.getAttribute("data_qty"); 
-        let stock = parseInt(document.getElementById(stockId).textContent);
+        purchasedQuantities[productName] = qty; 
+
+        let stock = parseInt(stockElement.textContent); 
+
          if (stock >= qty) {
                 stock -= qty;
             } else {
                 stock = 0; 
             }
+            stockElement.textContent = stock;
+            qtyInput.value = 1;
+            totalElement.textContent = "$0"; // 重設小計
+            cb.checked = false; // 取消勾選
 
-            document.getElementById(stockId).textContent = stock;
-            
-            if (stock > 0) {
-                document.getElementById(qtyId).value = 1;
-            } else {
-                document.getElementById(qtyId).value = 0;
-                document.getElementById(qtyId).disabled = true;  
-            }
-    } else {
-        document.getElementById(qtyId).value = 0;
-        document.getElementById(totalId).textContent = "$0";
-    }
+            if (stock <= 0) {
+                qtyInput.value = 0; 
+                qtyInput.disabled = true;
+            } 
+        }   else {
+
+             qtyInput.value = 1;
+             totalElement.textContent = "$0";
+             cb.checked = false;
+    } 
 });
+    document.getElementById("checkbox_all").checked = false;
+
     if (total <= 0){
         return;
     }
     document.getElementById("total").textContent = "$" + total;
 
-    alert("感謝您的購買，您購買的產品如下:"
-    + "\n西瓜: " + document.getElementById("melonsnum").value + " 顆"
-    + "\n香蕉: " + document.getElementById("banananum").value + " 根"
-    + "\nRTX5070: " + document.getElementById("RTXnum").value + " 張"
-    + "\n總金額: " + document.getElementById("total").textContent); 
+ alert("感謝您的購買，您購買的產品如下:"
+        + "\n西瓜: " + (purchasedQuantities["西瓜"] || 0) + " 顆"
+        + "\n香蕉: " + (purchasedQuantities["香蕉"] || 0) + " 根"
+        + "\nRTX5070: " + (purchasedQuantities["RTX5070"] || 0) + " 張"
+        + "\n總金額: " + document.getElementById("total").textContent);
 
     updatetotal()
 
