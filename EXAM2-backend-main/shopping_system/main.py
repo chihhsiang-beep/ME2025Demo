@@ -10,28 +10,36 @@ app = Flask(__name__)
 
 # 路徑修改
 def get_db_connection():
-    conn = sqlite3.connect('')
-    if not os.path.exists(''):
+    conn = sqlite3.connect('./shopping_data.db')
+    if not os.path.exists('./shopping_data.db'):
         logging.error(f"Database file not found at {''}")
         return None
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
 # 補齊空缺程式碼
-@app.route()
+@app.route('/')
 def page_login():
-        return 
+        return redirect(url_for('page_login'))
     
 @app.route('/page_register', methods=[])
 def page_register():
     if request.method == 'POST':
         data = request.get_json()
+        username = data.get('username', '').strip()
+        password = data.get('password', '').strip()
+        email = data.get('email', '').strip()
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM user_table WHERE username = ?", (username,))
+        user_exist = cursor.fetchone()
        # 補齊空缺程式碼
-        if ...
+        if user_exist:
             return jsonify({"status": "error", "message": "此名稱已被使用"})
 
         if len(password) < 8:
-       ...
+            return jsonify({"status": "error", "message": "密碼長度不足"})
        
     return render_template('page_register.html')
 
@@ -71,10 +79,13 @@ def page_login():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 # 補齊剩餘副程式
-
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('page_login'))
 
 # 補齊空缺程式碼
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
 
