@@ -370,10 +370,10 @@ async function handleRegister(event) {
   // 根據後端傳回狀態顯示訊息
   if (result.status === 'exists_updated') {
     alert('帳號已存在，成功修改密碼或信箱');
-    window.location.href = '/page_login';
+    window.location.href = '/page_login_';
   } else if (result.status === 'success') {
     alert('註冊成功');
-    window.location.href = '/page_login';
+    window.location.href = '/page_login_';
   } else {
     alert(result.message || '註冊失敗');
   }

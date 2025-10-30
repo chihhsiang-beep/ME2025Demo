@@ -75,7 +75,7 @@ def login_user(username, password):
     if conn is not None:
         try:
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM user_table WHERE username = ? AND password = ?", (username, password))
+            cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
             user = cursor.fetchone()
             if user:
                 return {"status": "success", "message": "Login successful"}
@@ -91,7 +91,7 @@ def login_user(username, password):
 
 
 # === 登入頁面與功能 ===
-@app.route('/page_login', methods=['GET', 'POST'])
+@app.route('/page_login_', methods=['GET', 'POST'])
 def page_login():
     try:
         if request.method == 'POST':
@@ -111,14 +111,14 @@ def page_login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    return redirect(url_for('page_login'))
+    return redirect(url_for('page_login_'))
 
 
 # === 首頁（登入後導向） ===
 @app.route('/index')
 def index():
     if 'username' not in session:
-        return redirect(url_for('page_login'))
+        return redirect(url_for('page_login_'))
     return render_template('index.html')
 
 
