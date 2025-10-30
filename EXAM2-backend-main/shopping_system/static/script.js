@@ -14,25 +14,32 @@ const products = [
 
 
 (function showUsername() {
-// === 顯示登入使用者於導行列，補齊程式碼 ===
-  // 從 localStorage 取出使用者名稱
+  // === 顯示登入使用者於導行列 ===
   const username = localStorage.getItem('username') || 'Guest';
-
-  // 找到顯示區域 <strong id="username">
   const nameEl = document.getElementById('username');
   if (nameEl) nameEl.textContent = username;
 
-  // 綁定登出事件
+  // === 綁定登出事件 ===
   const logoutLink = document.getElementById('logout-link');
   if (logoutLink) {
     logoutLink.addEventListener('click', (e) => {
       e.preventDefault();
-      // 清除登入紀錄並導回登入頁
+      // 清除登入紀錄
       localStorage.removeItem('username');
-      location.href = '/page_login'; // 依後端實際登入頁路徑修改
+
+      // 彈出提示並返回登入頁面
+      alert('已登出，返回登入頁面');
+      location.href = '/page_login_';
     });
   }
+
+  // === 若尚未登入自動導回登入頁 ===
+  if (!localStorage.getItem('username') && window.location.pathname !== '/page_login_') {
+    alert('請先登入');
+    window.location.href = '/page_login_';
+  }
 })();
+
 
 
 //以下請自行新增或修改程式碼
@@ -97,7 +104,7 @@ function display_products(products_to_display) {
     const state = rowState.get(key);
     const price = Number(p.price) || 0;
     const total = price * (state.qty || 0);
-
+    const isDisabled = !state.checked; 
     const product_info = `
       <tr data-key="${key}">
         <td><input type="checkbox" class="row-check" ${state.checked ? 'checked' : ''}></td>
@@ -248,13 +255,6 @@ function apply_filter(products_to_filter) {
   });
 })();
 
-function updateRowTotal(tr) {
-  const price = Number(tr.querySelector('[data-price]')?.dataset?.price || 0);
-  const qty = Number(tr.querySelector('.qty-input')?.value || 0);
-  const totalCell = tr.querySelector('.row-total');
-  if (totalCell) totalCell.textContent = (price * qty).toLocaleString();
-}
-
 // === 合計 & 下單 ===
 function refreshSummary() {
   const tbody = document.querySelector('#products table tbody');
@@ -266,22 +266,63 @@ function refreshSummary() {
 
   tbody.querySelectorAll('tr').forEach(tr => {
     const chk = tr.querySelector('.row-check');
-    const qty = Number(tr.querySelector('.qty-input')?.value || 0);
+    const input = tr.querySelector('.qty-input');
+    const dec = tr.querySelector('.btn-dec');
+    const inc = tr.querySelector('.btn-inc');
     const price = Number(tr.querySelector('[data-price]')?.dataset?.price || 0);
-    if (chk?.checked && qty > 0) {
+    const qty = Number(input?.value || 0);
+
+    // === 若未勾選，則禁用 ± 並將數量歸 0 ===
+    if (!chk.checked) {
+      dec.disabled = true;
+      inc.disabled = true;
+      input.disabled = true;
+      input.value = 0;
+      dec.style.opacity = inc.style.opacity = '0.4';
+      dec.style.cursor = inc.style.cursor = 'not-allowed';
+    } else {
+      dec.disabled = false;
+      inc.disabled = false;
+      input.disabled = false;
+      dec.style.opacity = inc.style.opacity = '1';
+      dec.style.cursor = inc.style.cursor = 'pointer';
+    }
+
+    // === 累積統計 ===
+    if (chk.checked && qty > 0) {
       selectedCount += 1;
       totalQty += qty;
       totalPrice += qty * price;
     }
+
+    // === 即時更新每列小計 ===
+    const totalCell = tr.querySelector('.row-total');
+    if (totalCell) totalCell.textContent = (price * qty).toLocaleString();
   });
 
+  // === 下單鍵反白與啟用控制 ===
   const btnOrder = document.getElementById('place-order');
-  if (btnOrder) btnOrder.disabled = !(selectedCount > 0 && totalQty > 0);
-
   const summaryEl = document.getElementById('cart-summary');
-  if (summaryEl) summaryEl.textContent =
-    `已選 ${selectedCount} 項、總數量 ${totalQty}、總金額 $${totalPrice.toLocaleString()}`;
+
+  if (btnOrder) {
+    if (selectedCount > 0 && totalQty > 0) {
+      btnOrder.disabled = false;
+      btnOrder.style.opacity = '1';
+      btnOrder.style.cursor = 'pointer';
+    } else {
+      btnOrder.disabled = true;
+      btnOrder.style.opacity = '0.4';
+      btnOrder.style.cursor = 'not-allowed';
+    }
+  }
+
+  // === 更新統計摘要 ===
+  if (summaryEl) {
+    summaryEl.textContent = `已選 ${selectedCount} 項、總數量 ${totalQty}、總金額 $${totalPrice.toLocaleString()}`;
+  }
 }
+
+
 
 // 綁定下單按鈕
 (function bindOrderButton() {
