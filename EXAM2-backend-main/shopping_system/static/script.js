@@ -29,7 +29,7 @@ const products = [
       e.preventDefault();
       // 清除登入紀錄並導回登入頁
       localStorage.removeItem('username');
-      location.href = '/login'; // 依後端實際登入頁路徑修改
+      location.href = '/page_login'; // 依後端實際登入頁路徑修改
     });
   }
 })();
@@ -319,7 +319,7 @@ async function handleLogin(event) {
   // 先把使用者名稱記起來供前端顯示
   if (username) localStorage.setItem('username', username);
 
-  const response = await fetch('/page_login', {
+  const response = await fetch('/page_login_', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
@@ -329,7 +329,7 @@ async function handleLogin(event) {
     const result = await response.json();
     if (result.status === 'success') {
       alert('登入成功');
-      window.location.href = '/shop';
+      window.location.href = '/index'; // 登入成功後導回首頁
     } else {
       alert('帳號或密碼錯誤');
     }
@@ -337,6 +337,46 @@ async function handleLogin(event) {
     alert('登入失敗');
   }
 }
+
+// === 註冊功能 ===
+async function handleRegister(event) {
+  event.preventDefault(); // 阻止預設的表單提交行為
+
+  const username = document.getElementById('username')?.value.trim() || '';
+  const password = document.getElementById('password')?.value || '';
+  const email = document.getElementById('email')?.value.trim() || '';
+
+  // 規則檢查（前端再檢查一次）
+  if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password)) {
+    alert('密碼必須超過8個字元且包含英文大小寫，重新輸入');
+    return;
+  }
+  if (!/^[A-Za-z0-9._%+-]+@gmail\.com$/.test(email)) {
+    alert('Email 格式不符重新輸入');
+    return;
+  }
+
+  // 呼叫後端 API
+  const response = await fetch('/page_register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password, email })
+  });
+
+  const result = await response.json();
+
+  // 根據後端傳回狀態顯示訊息
+  if (result.status === 'exists_updated') {
+    alert('帳號已存在，成功修改密碼或信箱');
+    window.location.href = '/page_login';
+  } else if (result.status === 'success') {
+    alert('註冊成功');
+    window.location.href = '/page_login';
+  } else {
+    alert(result.message || '註冊失敗');
+  }
+}
+
 
 
 // === 首次渲染 ===
