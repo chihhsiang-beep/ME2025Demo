@@ -40,11 +40,13 @@ function increase (inputId, qtyId) {
 function decrease (inputId) {
     let input = document.getElementById(inputId);
     let a = parseInt(input.value);
-    if (a > 1) {
+    if (a >= 1) {
         a --    
-    } else if (a = 1) {
+    } else if (a == 1) {
         a;
-    }  
+    } else if(a < 1) {
+        a = 0;
+    }
     document.getElementById(inputId).value = a;
     updatetotal()
 }
@@ -70,7 +72,7 @@ function AllCheckboxes(selectCheckbox) {
 function selectAllcheckedbox() {
     const checkboxes  = document.querySelectorAll(".product");
     const selectAllcheckedbox = document.getElementById("checkbox_all");
-    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);  // allChecked) 是一個布林值，表示是否所有的商品都被勾選
     selectAllcheckedbox.checked = allChecked;
     if (!allChecked) {
          selectAllcheckedbox.checked = false;
