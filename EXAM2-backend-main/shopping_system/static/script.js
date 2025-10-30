@@ -319,19 +319,25 @@ async function handleLogin(event) {
   // 先把使用者名稱記起來供前端顯示
   if (username) localStorage.setItem('username', username);
 
-  const response = await fetch('/', {
+  const response = await fetch('/page_login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
   });
 
-  // 依你後端邏輯處理導向
   if (response.ok) {
-    // location.href = '/'; // 例如登入成功返回首頁
+    const result = await response.json();
+    if (result.status === 'success') {
+      alert('登入成功');
+      window.location.href = '/shop';
+    } else {
+      alert('帳號或密碼錯誤');
+    }
   } else {
     alert('登入失敗');
   }
 }
+
 
 // === 首次渲染 ===
 display_products(products);
