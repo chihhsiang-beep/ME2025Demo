@@ -15,6 +15,23 @@ const products = [
 
 (function showUsername() {
 // === 顯示登入使用者於導行列，補齊程式碼 ===
+  // 從 localStorage 取出使用者名稱
+  const username = localStorage.getItem('username') || 'Guest';
+
+  // 找到顯示區域 <strong id="username">
+  const nameEl = document.getElementById('username');
+  if (nameEl) nameEl.textContent = username;
+
+  // 綁定登出事件
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      // 清除登入紀錄並導回登入頁
+      localStorage.removeItem('username');
+      location.href = '/login'; // 依後端實際登入頁路徑修改
+    });
+  }
 })();
 
 
