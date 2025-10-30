@@ -36,7 +36,9 @@ const products = [
 
 
 //以下請自行新增或修改程式碼
-
+if (!document.querySelector('#products')) {
+  console.log('非商品頁面，略過 ensureOrderButton');
+} else {
 (function ensureOrderButton() {
   if (!document.getElementById('place-order')) {
     const wrap = document.createElement('div');
@@ -72,7 +74,7 @@ const products = [
     document.body.appendChild(wrap);
   }
 })();
-
+}
 // === 狀態：每列的勾選與數量 ===
 const rowState = new Map(); 
 
